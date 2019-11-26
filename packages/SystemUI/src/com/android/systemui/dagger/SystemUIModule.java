@@ -33,6 +33,7 @@ import com.android.systemui.BootCompleteCache;
 import com.android.systemui.BootCompleteCacheImpl;
 import com.android.systemui.CameraProtectionModule;
 import com.android.systemui.CoreStartable;
+import com.android.systemui.CustomModule;
 import com.android.systemui.SystemUISecondaryUserService;
 import com.android.systemui.activity.ActivityManagerModule;
 import com.android.systemui.ambient.dagger.AmbientModule;
@@ -232,6 +233,7 @@ import javax.inject.Named;
         ConfigurationControllerModule.class,
         ConnectivityModule.class,
         ControlsModule.class,
+        CustomModule.class,
         DemoModeModule.class,
         DeviceEntryModule.class,
         DisableFlagsModule.class,
