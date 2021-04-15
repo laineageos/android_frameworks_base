@@ -120,7 +120,7 @@ public class SystemSettings {
                 Settings.System.NOTIFICATION_COOLDOWN_ENABLED,
                 Settings.System.NOTIFICATION_COOLDOWN_ALL,
                 Settings.System.NOTIFICATION_COOLDOWN_VIBRATE_UNLOCKED,
-                Settings.System.PREFERRED_REGION
+                Settings.System.PREFERRED_REGION,
                 Settings.System.ONGOING_ACTION_CHIP
 
         ));
