@@ -41,12 +41,13 @@ import android.util.Log;
 import android.view.Display;
 import android.widget.Toast;
 
-import com.android.systemui.Prefs;
+import com.android.systemui.animation.DialogTransitionAnimator;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.logging.UiEventLogger;
 import com.android.systemui.dagger.qualifiers.LongRunning;
 import com.android.systemui.dagger.qualifiers.Main;
 import com.android.systemui.mediaprojection.MediaProjectionCaptureTarget;
+import com.android.systemui.qs.pipeline.domain.interactor.PanelInteractor;
 import com.android.systemui.recordissue.ScreenRecordingStartTimeStore;
 import com.android.systemui.res.R;
 import com.android.systemui.screenrecord.ScreenMediaRecorder.SavedRecording;
@@ -109,6 +110,8 @@ public class RecordingService extends Service implements ScreenMediaRecorderList
     private final ScreenRecordingStartTimeStore mScreenRecordingStartTimeStore;
     private final Executor mLongExecutor;
     private final UiEventLogger mUiEventLogger;
+    private final DialogTransitionAnimator mDialogTransitionAnimator;
+    private final PanelInteractor mPanelInteractor;
     protected final NotificationManager mNotificationManager;
     protected final UserContextProvider mUserContextTracker;
     protected int mNotificationId = NOTIF_BASE_ID;
@@ -123,7 +126,9 @@ public class RecordingService extends Service implements ScreenMediaRecorderList
             @Main Handler handler, UiEventLogger uiEventLogger,
             NotificationManager notificationManager,
             UserContextProvider userContextTracker, KeyguardDismissUtil keyguardDismissUtil,
-            ScreenRecordingStartTimeStore screenRecordingStartTimeStore) {
+            ScreenRecordingStartTimeStore screenRecordingStartTimeStore,
+            DialogTransitionAnimator dialogTransitionAnimator,
+            PanelInteractor panelInteractor) {
         mController = controller;
         mLongExecutor = executor;
         mMainHandler = handler;
@@ -133,6 +138,8 @@ public class RecordingService extends Service implements ScreenMediaRecorderList
         mKeyguardDismissUtil = keyguardDismissUtil;
         mScreenRecordingStartTimeStore = screenRecordingStartTimeStore;
         mBinder = new RecordingServiceBinder();
+        mDialogTransitionAnimator = dialogTransitionAnimator;
+        mPanelInteractor = panelInteractor;
     }
 
     /**
@@ -294,7 +301,11 @@ public class RecordingService extends Service implements ScreenMediaRecorderList
                 break;
             case ACTION_SHOW_DIALOG:
                 if (mController != null) {
-                    mController.createScreenRecordDialog(null).show();
+                    Runnable onStartRecordingClicked = () -> {
+                        mDialogTransitionAnimator.disableAllCurrentDialogsExitAnimations();
+                        mPanelInteractor.collapsePanels();
+                    };
+                    mController.createScreenRecordDialog(onStartRecordingClicked).show();
                 }
                 break;
         }
