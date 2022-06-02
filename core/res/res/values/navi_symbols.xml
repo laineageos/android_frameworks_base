@@ -37,4 +37,7 @@
 
     <!-- Name of a font family to use as regular font. For theming purpose. -->
     <string name="config_regularFontFamily" translatable="false">sans-serif-regular</string>
+
+    <!-- Lock gesture -->
+    <java-symbol type="string" name="gesture_locked_warning" />    
 </resources>
