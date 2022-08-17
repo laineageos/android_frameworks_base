@@ -15,15 +15,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Pocket mode -->
-    <java-symbol type="layout" name="pocket_mode_layout" />
-    <java-symbol type="drawable" name="prevent_mode_img" />
-    <java-symbol type="id" name="pocket_mode_phone_image" />
-    <java-symbol type="id" name="pocket_mode_active_message" />
-    <java-symbol type="id" name="pocket_mode_hint_message" />
-    <java-symbol type="string" name="pocket_mode_active" />
-    <java-symbol type="string" name="pocket_mode_hint" />
-
     <!-- Whether to cancel fingerprint operation if not idle -->
-    <java-symbol type="bool" name="config_fpCancelIfNotIdle" />
+    <bool name="config_fpCancelIfNotIdle">false</bool>
 </resources>
