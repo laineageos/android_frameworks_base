@@ -19779,6 +19779,13 @@ public final class Settings {
 
 
         /**
+         * Control whether to spoof current status of storage encryption.
+         * @hide
+         */
+        @Readable
+        public static final String SPOOF_STORAGE_ENCRYPTION_STATUS = "spoof_storage_encryption_status";
+
+        /**
          * Setting indicating whether Low Power Standby is enabled, if supported.
          *
          * Values are:
