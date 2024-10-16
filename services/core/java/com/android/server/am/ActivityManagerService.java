@@ -19452,4 +19452,13 @@ public class ActivityManagerService extends IActivityManager.Stub
     private IBackupManager getBackupManager() {
         return IBackupManager.Stub.asInterface(ServiceManager.getService(Context.BACKUP_SERVICE));
     }
+
+    @Override
+    public boolean isThreeFingersSwipeActive() {
+        final boolean gestureActive = Settings.System.getInt(
+                mContext.getContentResolver(), "three_finger_gesture_active", 0) != 0;
+        synchronized (this) {
+            return gestureActive;
+        }
+    }
 }
